@@ -24,14 +24,16 @@ class InitInstructionParserTest {
     @DisplayName("Returning position created from parse input string of integers when 2 integers (delimited by one space) are provided as input string")
     void parse_ValidInputWithTwoIntegers() {
         InitInstructionParser  initParser = new InitInstructionParser();
-        String initInstruction = "5 5";
-        PlateauSize expectedSize = new PlateauSize(5, 5);
+        String initInstruction = "5 6";
+        PlateauSize expectedSize = new PlateauSize(5, 6);
 
         PlateauSize actualSize = initParser.parse(initInstruction);
 
-        assertEquals(actualSize, expectedSize);
-        assertEquals(actualSize.length(), 5);
-        assertEquals(actualSize.width(), 5);
+        assertEquals(actualSize.getWidth(), 5);
+        assertEquals(actualSize.getLength(), 6);
+        assertEquals(actualSize.getUpperX(), 5);
+        assertEquals(actualSize.getUpperY(), 6);
+
     }
 
     @Test
@@ -107,6 +109,7 @@ class InitInstructionParserTest {
         } catch (IllegalArgumentException e) {
             assertEquals(e.getMessage(), "Invalid input to parse method. Two integers required.");
         }
+
     }
 
     @Test

@@ -55,4 +55,6 @@ public class InitInstructionParser implements Parsable<PlateauSize> {
         // for now (x,y)  coords are  measured from Origin (0,0) to calc length and width
         return new PlateauSize(x, y);
     }
+
+
 }
