@@ -43,4 +43,14 @@ public class PlateauSize {
     public int getWidth() {
         return width;
     }
+
+
+    public boolean equals(PlateauSize p) {
+        return (p.upperX == this.upperX &&
+                p.upperY == this.upperY &&
+                p.lowerX == this.lowerX &&
+                p.lowerY == this.lowerY &&
+                p.length == this.length &&
+                p.width == this.width);
+    }
 }

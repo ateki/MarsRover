@@ -40,4 +40,10 @@ public class Position {
     public void setFacing(CompassDirection facing) {
         this.facing = facing;
     }
+
+    public boolean isEquals(Position p) {
+        return (p.getX()== this.x &&
+        p.getY() == this.y &&
+        p.getFacing() == this.facing);
+    }
 }
