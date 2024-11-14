@@ -20,10 +20,6 @@ class InitInstructionParserTest {
     void tearDown() {
     }
 
-    // parse empty string
-    // parse null string
-    // parse valid +ve Integer +veInteger letter where integer is single digit number 1-9
-    // parse valid +ve Integer Integer letter where letter is multi digit letter
 
     @Test
     @DisplayName("Returning position created from parse input string of integers when 2 single digit integers (1-9)  (delimited by one space) are provided as input string")
@@ -34,6 +30,7 @@ class InitInstructionParserTest {
 
         PlateauSize actualSize = initParser.parse(initInstruction);
 
+        assertTrue(expectedSize.equals(actualSize));
         assertEquals(actualSize.getWidth(), 5);
         assertEquals(actualSize.getLength(), 6);
         assertEquals(actualSize.getUpperX(), 5);
@@ -50,6 +47,8 @@ class InitInstructionParserTest {
 
         PlateauSize actualSize = initParser.parse(initInstruction);
 
+
+        assertTrue(expectedSize.equals(actualSize));
         assertEquals(actualSize.getWidth(), 15);
         assertEquals(actualSize.getLength(), 11);
         assertEquals(actualSize.getUpperX(), 15);
@@ -57,6 +56,61 @@ class InitInstructionParserTest {
 
     }
 
+
+    @Test
+    @DisplayName("Returning position created from parse valid input string of integers for coordinates and CompassDirection with leading whitespace")
+    void parse_ValidInputWithLeadingWhiteSpace() {
+        InitInstructionParser  initParser = new InitInstructionParser();
+        String initInstruction = "          15 11";
+        PlateauSize expectedSize = new PlateauSize(15, 11);
+
+        PlateauSize actualSize = initParser.parse(initInstruction);
+
+        assertTrue(expectedSize.equals(actualSize));
+
+        assertEquals(actualSize.getWidth(), 15);
+        assertEquals(actualSize.getLength(), 11);
+        assertEquals(actualSize.getUpperX(), 15);
+        assertEquals(actualSize.getUpperY(), 11);
+
+    }
+
+    @Test
+    @DisplayName("Returning position created from parse valid input string of integers for coordinates and CompassDirection with trailing whitespace")
+    void parse_ValidInputWithTrailingWhiteSpace() {
+        InitInstructionParser  initParser = new InitInstructionParser();
+        String initInstruction = "7 11     ";
+        PlateauSize expectedSize = new PlateauSize(7, 11);
+
+        PlateauSize actualSize = initParser.parse(initInstruction);
+
+
+        assertTrue(expectedSize.equals(actualSize));
+        assertEquals(actualSize.getWidth(), 7);
+        assertEquals(actualSize.getLength(), 11);
+        assertEquals(actualSize.getUpperX(), 7);
+        assertEquals(actualSize.getUpperY(), 11);
+    }
+
+
+    @Test
+    @DisplayName("Returning position created from parse valid input string of integers for coordinates and CompassDirection with whitespace delimited of diff lengths")
+    void parse_ValidInputWithDifferingWhitespaceDelimiters() {
+        InitInstructionParser  initParser = new InitInstructionParser();
+        String initInstruction = "      7 11";
+        PlateauSize expectedSize = new PlateauSize(7, 11);
+
+        PlateauSize actualSize = initParser.parse(initInstruction);
+
+
+        assertTrue(expectedSize.equals(actualSize));
+        assertEquals(actualSize.getWidth(), 7);
+        assertEquals(actualSize.getLength(), 11);
+        assertEquals(actualSize.getUpperX(), 7);
+        assertEquals(actualSize.getUpperY(), 11);
+    }
+
+    /**======================*/
     @Test
     @DisplayName("Returning IllegalArgumentException when input string provided has 2 integers, but one is -ve")
     void parse_InvalidInputWithOneNegativeInteger() {

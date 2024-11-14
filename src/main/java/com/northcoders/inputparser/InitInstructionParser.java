@@ -34,7 +34,8 @@ public class InitInstructionParser implements Parsable<PlateauSize> {
             throw new IllegalArgumentException("Invalid input to parse method. Null or empty string not valid.");
         }
 
-        String[] numbers = input.split(" ");
+
+        String[] numbers = input.trim().split("\\s+");  // ignore any trailing/leading whitespace
         if (numbers.length != 2) {
             throw new IllegalArgumentException("Invalid input to parse method. Two integers required.");
         }
