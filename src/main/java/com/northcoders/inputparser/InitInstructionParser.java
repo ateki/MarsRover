@@ -9,7 +9,7 @@ import com.northcoders.PlateauSize;
  * TODO: What if diff shaped ares
  * TODO: Poss rename to PlayingAreaSize as may have diff types of playing areas?
  */
-public class InitInstructionParser {
+public class InitInstructionParser implements Parsable<PlateauSize> {
     public PlateauSize parse(String input) {
         System.out.println(this.getClass().getSimpleName()+  ".parse");
         return null;
