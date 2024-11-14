@@ -20,9 +20,14 @@ class InitInstructionParserTest {
     void tearDown() {
     }
 
+    // parse empty string
+    // parse null string
+    // parse valid +ve Integer +veInteger letter where integer is single digit number 1-9
+    // parse valid +ve Integer Integer letter where letter is multi digit letter
+
     @Test
-    @DisplayName("Returning position created from parse input string of integers when 2 integers (delimited by one space) are provided as input string")
-    void parse_ValidInputWithTwoIntegers() {
+    @DisplayName("Returning position created from parse input string of integers when 2 single digit integers (1-9)  (delimited by one space) are provided as input string")
+    void parse_ValidInputWithTwoSingleDigitIntegers() {
         InitInstructionParser  initParser = new InitInstructionParser();
         String initInstruction = "5 6";
         PlateauSize expectedSize = new PlateauSize(5, 6);
@@ -33,6 +38,22 @@ class InitInstructionParserTest {
         assertEquals(actualSize.getLength(), 6);
         assertEquals(actualSize.getUpperX(), 5);
         assertEquals(actualSize.getUpperY(), 6);
+
+    }
+
+    @Test
+    @DisplayName("Returning position created from parse input string of integers when 2 multi digit integers (10 or greater)  (delimited by one space) are provided as input string")
+    void parse_ValidInputWithTwoMultiDigitIntegers() {
+        InitInstructionParser  initParser = new InitInstructionParser();
+        String initInstruction = "15 11";
+        PlateauSize expectedSize = new PlateauSize(15, 11);
+
+        PlateauSize actualSize = initParser.parse(initInstruction);
+
+        assertEquals(actualSize.getWidth(), 15);
+        assertEquals(actualSize.getLength(), 11);
+        assertEquals(actualSize.getUpperX(), 15);
+        assertEquals(actualSize.getUpperY(), 11);
 
     }
 
