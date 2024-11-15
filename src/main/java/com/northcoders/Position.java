@@ -41,9 +41,9 @@ public class Position {
         this.facing = facing;
     }
 
-    public boolean isEquals(Position p) {
+    public boolean equals(Position p) {
         return (p.getX()== this.x &&
-        p.getY() == this.y &&
-        p.getFacing() == this.facing);
+                p.getY() == this.y &&
+                p.getFacing() == this.facing);
     }
 }

@@ -7,7 +7,8 @@ import java.util.Iterator;
 
 
 public class Moves {
-    ArrayList<Instruction> moves = new ArrayList<Instruction>();
+    private ArrayList<Instruction> moves = new ArrayList<Instruction>();
+    //private ArrayList<char> moves = new ArrayList<Instruction>();
 
     public void addInstruction(Instruction instruction) {
         moves.add(instruction);
