@@ -1,6 +1,4 @@
-package com.northcoders.inputparser;
-
-import com.northcoders.Position;
+package com.northcoders.inputparser.result;
 
 public class AbstractInputResult<T> {
     private boolean success;

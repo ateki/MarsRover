@@ -1,4 +1,4 @@
-package com.northcoders.inputparser;
+package com.northcoders.inputparser.result;
 
 import com.northcoders.PlateauSize;
 
