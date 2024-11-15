@@ -241,4 +241,128 @@ class RoverTest {
         assertEquals(3, newPosition.getY());
 
     }
+
+
+    @Test
+    @DisplayName("Returning position with y coord incremented by 1 when performing lookahead when facing NORTH")
+    void lookahead_WithRobotValidStartingPositionFacingNorth()  {
+        Position startingPosition = new Position(1,3,CompassDirection.N);
+        Rover testRover = new Rover(startingPosition);
+        Position expectedPosition = new Position(1,4, CompassDirection.N);
+        Position actualPosition = null;
+
+        try {
+             actualPosition = testRover.lookahead();
+        } catch (Exception e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+
+        assertTrue(expectedPosition.equals(actualPosition));
+        assertEquals(expectedPosition.getFacing(), actualPosition.getFacing());
+        assertEquals(expectedPosition.getX(), actualPosition.getX());
+        assertEquals(expectedPosition.getY(), actualPosition.getY());
+    }
+
+
+
+    @Test
+    @DisplayName("Returning position with y coord decremented by 1 when performing lookahead when facing SOUTH")
+    void lookahead_WithRobotValidStartingPositionFacingSouth()  {
+        Position startingPosition = new Position(1,3,CompassDirection.S);
+        Rover testRover = new Rover(startingPosition);
+        Position expectedPosition = new Position(1,2, CompassDirection.S);
+        Position actualPosition = null;
+
+        try {
+            actualPosition = testRover.lookahead();
+        } catch (Exception e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+
+        assertTrue(expectedPosition.equals(actualPosition));
+        assertEquals(expectedPosition.getFacing(), actualPosition.getFacing());
+        assertEquals(expectedPosition.getX(), actualPosition.getX());
+        assertEquals(expectedPosition.getY(), actualPosition.getY());
+    }
+
+    @Test
+    @DisplayName("Returning position with X coord incremented by 1 when performing lookahead when facing EAST")
+    void lookahead_WithRobotValidStartingPositionFacingEast()  {
+        Position startingPosition = new Position(1,3,CompassDirection.E);
+        Rover testRover = new Rover(startingPosition);
+        Position expectedPosition = new Position(2,3, CompassDirection.E);
+        Position actualPosition = null;
+
+        try {
+            actualPosition = testRover.lookahead();
+        } catch (Exception e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+
+        assertTrue(expectedPosition.equals(actualPosition));
+        assertEquals(expectedPosition.getFacing(), actualPosition.getFacing());
+        assertEquals(expectedPosition.getX(), actualPosition.getX());
+        assertEquals(expectedPosition.getY(), actualPosition.getY());
+    }
+
+    @Test
+    @DisplayName("Returning position with X coord decremented by 1 when performing lookahead when facing WEST")
+    void lookahead_WithRobotValidStartingPositionFacingWest()  {
+        Position startingPosition = new Position(1,3,CompassDirection.W);
+        Rover testRover = new Rover(startingPosition);
+        Position expectedPosition = new Position(0,3, CompassDirection.W);
+        Position actualPosition = null;
+
+        try {
+            actualPosition = testRover.lookahead();
+        } catch (Exception e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+
+        //assertEquals(expectedPosition ,actualPosition);
+        assertTrue(expectedPosition.equals(actualPosition));
+        assertEquals(expectedPosition.getFacing(), actualPosition.getFacing());
+        assertEquals(expectedPosition.getX(), actualPosition.getX());
+        assertEquals(expectedPosition.getY(), actualPosition.getY());
+    }
+
+
+    @Test
+    @DisplayName("Returning UnknownRoverCurrentPosException when performing lookahead when no current position available")
+    void lookahead_WithRobotNullStartingPoint()  {
+        Position startingPosition = null;
+        Rover testRover = new Rover(startingPosition);
+
+        try {
+            testRover.lookahead();
+            fail("Expecting exception as testing with Rover who has null starting point.");
+        } catch (UnknownRoverCurrentPosException e) {
+            assertEquals("No current position known.", e.getMessage());
+
+        } catch(UnknownCompassDirectionException e) {
+            fail("Expecting UnknownRoverCurrentPosException, but instead UnknownCompassDirectionException was thrown.");
+        }
+    }
+
+    @Test
+    @DisplayName("Returning position with X coord decremented by 5 when performing lookahead when facing WEST")
+    void lookahead_TenPositions_WithRobotValidStartingPositionFacingWest()  {
+        Position startingPosition = new Position(15,3,CompassDirection.W);
+        Rover testRover = new Rover(startingPosition);
+        Position expectedPosition = new Position(10,3, CompassDirection.W);
+        Position actualPosition = null;
+        int numPositions = 5;
+
+        try {
+            actualPosition = testRover.lookahead(numPositions);
+        } catch (Exception e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+
+        assertTrue(expectedPosition.equals(actualPosition));
+        assertEquals(expectedPosition.getFacing(), actualPosition.getFacing());
+        assertEquals(expectedPosition.getX(), actualPosition.getX());
+        assertEquals(expectedPosition.getY(), actualPosition.getY());
+    }
+
 }

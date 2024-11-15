@@ -3,9 +3,7 @@ package com.northcoders.logic;
 import com.northcoders.CompassDirection;
 import com.northcoders.Position;
 
-import java.sql.SQLOutput;
-
-public class Rover {
+public class Rover  implements IRemoteControllable {
 
     private boolean hasPosition = false;
     private boolean isInitialised = false;
@@ -44,7 +42,9 @@ public class Rover {
         return currentPosition;
     }
 
-
+    public void setCurrentPosition(Position currentPosition) {
+        this.currentPosition = currentPosition;
+    }
 
     /**
      * TODO: Poss rename lookToRotate in line with future lookahead function
@@ -162,6 +162,93 @@ public class Rover {
         return hasRotated;
     }
 
+
+
+    protected Position lookahead(int numberOfPositions) throws UnknownRoverCurrentPosException, UnknownCompassDirectionException {
+
+            // take current position as arg or read from rover itself thus no mistakes
+
+            // 1: validate got current pos and robot has been initialised
+            Position currentPosition = getCurrentPosition();
+
+            if (numberOfPositions<=0) {
+                throw new IllegalArgumentException("Request to handle invalid number of positions");
+            }
+
+
+            if (currentPosition==null) {
+                throw new UnknownRoverCurrentPosException("No current position known.");
+            }
+
+            int x = currentPosition.getX();
+            int y = currentPosition.getY();
+            CompassDirection facing = currentPosition.getFacing();
+
+            switch (facing) {
+                case N -> y += numberOfPositions;
+                case S -> y -= numberOfPositions;
+                case E -> x += numberOfPositions;
+                case W -> x -= numberOfPositions;
+                default -> throw new UnknownCompassDirectionException("Unrecognised compass direction");
+            }
+
+            return new Position(x, y, facing);
+        }
+
+    /**
+     * Ability to look ahed to work out coordinates if move forward.  Return new position
+     *  Note this method does not move Rover to new position.  To do this call on move(Position)
+     *  This is useful when controller wants to check if new position is empty before moving to it.
+
+     * @return
+     * @throws UnknownCompassDirectionException
+     */
+    // TODO Return Position for err cases with err message
+    // TODO: Logger add
+    protected Position lookahead() throws UnknownCompassDirectionException, UnknownRoverCurrentPosException {
+        return lookahead(1);
+
+        //        // take current position as arg or read from rover itself thus no mistakes
+//
+//        // 1: validate got current pos and robot has been initialised
+//        Position currentPosition = getCurrentPosition();
+//
+//        if (currentPosition==null) {
+//            throw new UnknownRoverCurrentPosException("No current position known.");
+//        }
+//
+//        int x = currentPosition.getX();
+//        int y = currentPosition.getY();
+//        CompassDirection facing = currentPosition.getFacing();
+//
+//        switch (facing) {
+//            case N -> y += 1;
+//            case S -> y -= 1;
+//            case E -> x += 1;
+//            case W -> x -= 1;
+//            default -> throw new UnknownCompassDirectionException("Unrecognised compass direction");
+//        }
+//
+//        return new Position(x, y, facing);
+    }
+
+
+
+    public Position moveForward() throws UnknownCompassDirectionException, UnknownRoverCurrentPosException {
+
+        if (!hasPosition()) {
+            System.out.println("error robot does not have starting position");
+            // TODO: Decide how to deal with  C
+            //  Could return PositionResult object rather than throw Exception
+            throw new UnknownRoverCurrentPosException("Rover has no current position.");
+        } else {
+
+            Position newPosition = lookahead();  // get new position
+            setCurrentPosition(newPosition);        // TODO What if newPosition not updated for some reason?
+
+            return newPosition;
+        }
+    }
 
     private void updateFacingDirection(CompassDirection direction) {
         this.currentPosition.setFacing(direction);
