@@ -207,29 +207,6 @@ public class Rover  implements IRemoteControllable {
     // TODO: Logger add
     protected Position lookahead() throws UnknownCompassDirectionException, UnknownRoverCurrentPosException {
         return lookahead(1);
-
-        //        // take current position as arg or read from rover itself thus no mistakes
-//
-//        // 1: validate got current pos and robot has been initialised
-//        Position currentPosition = getCurrentPosition();
-//
-//        if (currentPosition==null) {
-//            throw new UnknownRoverCurrentPosException("No current position known.");
-//        }
-//
-//        int x = currentPosition.getX();
-//        int y = currentPosition.getY();
-//        CompassDirection facing = currentPosition.getFacing();
-//
-//        switch (facing) {
-//            case N -> y += 1;
-//            case S -> y -= 1;
-//            case E -> x += 1;
-//            case W -> x -= 1;
-//            default -> throw new UnknownCompassDirectionException("Unrecognised compass direction");
-//        }
-//
-//        return new Position(x, y, facing);
     }
 
 
